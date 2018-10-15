@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  mongo-seed:
+    image: mongo
+    volumes:
+    - .:/scripts
+    command:
+      'bash -c "mongoimport --jsonArray --drop --host database --db boat-mean --collection videos --type json --file /scripts/video.json"'
+    depends_on: 
+    - database
