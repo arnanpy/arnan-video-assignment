@@ -29,7 +29,7 @@ videoSchema.virtual('score').get(function() {
 
 videoSchema.set('toJSON', { 
     virtuals: true
-})
+});
 
 const User = mongoose.model('User', userSchema);
 const Video = mongoose.model('Video', videoSchema);
@@ -96,6 +96,7 @@ router.get('/score/:id', (req, res) => {
     Video.aggregate(pipeline2 , (err, users) => {
         if (err) res.status(500).send(err)
         res.status(200).json(users);
+    });
     });
 
 router.post('/videos/like', (req, res) => {
