@@ -1,11 +1,7 @@
-import { Component, OnInit  } from '@angular/core';
+import { Component, OnDestroy, OnInit  } from '@angular/core';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
-import { toArray } from 'rxjs/operators';
-import { map } from 'rxjs/operators'; 
-import {startWith, switchMap} from "rxjs/operators";
-
-import {interval} from "rxjs/internal/observable/interval";
-import { Observable } from 'rxjs';
+import {startWith, switchMap,takeWhile,map,toArray} from "rxjs/operators";
+import { Observable,interval } from 'rxjs';   
 import { Videoc } from './video';
 import { Video } from './video';
 import {ApiService} from "./video.service";
@@ -20,7 +16,7 @@ const httpOptions = {
 })
 
  
-export class AppComponent implements OnInit { 
+export class AppComponent implements OnInit, OnDestroy { 
    
  
   API = 'http://localhost:3000';
@@ -33,13 +29,20 @@ export class AppComponent implements OnInit {
   vids: Videoc[];
 
   uid = 1;
+  private interval: number;
 
   constructor(private http: HttpClient,private apiService: ApiService) { 
+    this.interval = 1000;
+    this.alive = true;
+  }
  
+  ngOnDestroy(){
+    this.alive = false; // switches your TimerObservable off
   }
 
   public like_class = 'unlike';
   
+  private alive: boolean;
  
  
   ngOnInit() {
@@ -53,8 +56,26 @@ export class AppComponent implements OnInit {
   //     this.vids = res.videos;
   //   })
   // ;
-    this.getAllVideo(); 
+  // this.getAllVideo(); 
     this.getAllPeople(); 
+    this.http.get(`${this.API}/ranking`)
+    .subscribe(videos => {
+       
+      this.videos = videos 
+    })
+
+    interval(1000).pipe(
+      takeWhile(() => this.alive))
+      .subscribe(() => {
+        this.http.get(`${this.API}/ranking`)
+          .subscribe(videos => {
+             
+            this.videos = videos 
+          })
+
+
+        
+      });
 
      
   }
@@ -74,7 +95,11 @@ export class AppComponent implements OnInit {
       })
   }
 
+  identify(index, video){
+    return index; 
+ }
   getAllVideo() {
+    const source = interval(1000);
     this.results = this.http.get<Video[]>(`${this.API}/ranking`) 
   }
  

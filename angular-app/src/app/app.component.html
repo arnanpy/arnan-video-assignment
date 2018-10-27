@@ -7,7 +7,7 @@
 
 <div class="container">
   <div [style.margin-top.px]="10" class="row"> 
-    <div [style.margin-right.px]="10" class="card card-block col-md-12" *ngFor="let video of results | async ; let i = index ; ">
+    <div [style.margin-right.px]="10" class="card card-block col-md-12" *ngFor="let video of videos ; let i = index ;  trackBy:identify">
       <div class="col-md-1">No.{{ i+1 }}</div> 
       <div class="col-md-3">
         <video class="thumb_img" poster="{{ video.thumb }}" controls (play)="updateView(video._id)" #videoPlayer  >
