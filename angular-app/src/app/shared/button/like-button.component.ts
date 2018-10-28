@@ -6,10 +6,10 @@ import { of } from 'rxjs';
 import { concatMap, tap } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-favorite-button',
-  templateUrl: './favorite-button.component.html'
+  selector: 'app-like-button',
+  templateUrl: './like-button.component.html'
 })
-export class FavoriteButtonComponent {
+export class LikeButtonComponent {
   constructor(
     public videoService: VideoService
   ) { }
@@ -18,7 +18,7 @@ export class FavoriteButtonComponent {
   @Output() toggle = new EventEmitter<boolean>();
   isSubmitting = false;
 
-  toggleFavorite() {
+  toggleLike() {
     this.isSubmitting = true;
     if (!this.video.isliked) {
        return this.videoService.updateLike(this.video._id)

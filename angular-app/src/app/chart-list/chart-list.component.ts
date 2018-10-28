@@ -3,7 +3,16 @@ import { Video } from '../video';
 import { VideoService } from '../video/video.service'
 import { Observable, interval } from 'rxjs';
 import { startWith, switchMap, takeWhile, map, toArray } from "rxjs/operators";
-
+import { TransitionGroupComponent, TransitionGroupItemDirective } from './chart-list.transition';
+import {  trigger,
+  state,
+  style,
+  animate,
+  query,
+  stagger,
+  animateChild,
+  transition } from '@angular/animations';
+  
 @Component({
   selector: 'app-chart-list',
   templateUrl: './chart-list.component.html',
@@ -16,8 +25,9 @@ export class ChartListComponent implements OnInit, OnDestroy {
   private interval: number;
 
   ngOnInit() {
-    this.interval = 1000;
+    this.interval = 10000;
     this.alive = true;
+    
 
     this.videoService.getAllPeople();
     this.videoService.getAllRankingVideo()
@@ -26,7 +36,7 @@ export class ChartListComponent implements OnInit, OnDestroy {
         this.videos = videos
       })
 
-    interval(100000).pipe(
+    interval(10000).pipe(
       takeWhile(() => this.alive))
       .subscribe(() => {
         this.videoService.getAllRankingVideo()
@@ -44,5 +54,8 @@ export class ChartListComponent implements OnInit, OnDestroy {
   } 
 
   videos: Video[];
+  display='none'; 
+
+  
 
 }

@@ -1,17 +1,17 @@
 import { ModuleWithProviders, NgModule } from '@angular/core'; 
-import { FavoriteButtonComponent } from '../shared/button/favorite-button.component';
+import { LikeButtonComponent } from '../shared/button/like-button.component';
 import { VideoService } from './video.service';
 
 @NgModule({
   imports: [ 
-    FavoriteButtonComponent
+    LikeButtonComponent
   ],
   declarations: [
-    FavoriteButtonComponent
+    LikeButtonComponent
   ],
 
   providers: [
-    FavoriteButtonComponent,
+    LikeButtonComponent,
     VideoService
   ]
 })
