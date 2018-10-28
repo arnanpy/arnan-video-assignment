@@ -1,0 +1,29 @@
+<div [style.margin-top.px]="10" class="">
+  <div class="card" [style.margin-top.px]="10" *ngFor="let video of videos ; let i = index ;  trackBy:identify" [(ngModel)]="video">
+    <div class="container-fluid">
+        <div class="row">
+      <div class="col-md-1">No.{{ i+1 }}</div>
+      <div class="col-md-3">
+        <video class="thumb_img" poster="{{ video.thumb }}" controls (play)="updateView(video._id)" #videoPlayer>
+          <source src="{{ video.sources }}" type="video/mp4">
+        </video>
+      </div>
+      <div class="col-md-5">
+        <h4 class="card-title">{{video.title}}</h4>
+        <p class="card-desc">{{video.description}}</p>
+      </div>
+      <div class="col-md-3">
+        <p class="card-view">Views : {{video.views}}</p>
+        <a href="#" class="btn btn-xs btn-warning" [ngClass]="{  
+          'btn-outline-primary': !like_class,
+          'btn-primary': like_class }"
+          (click)="toggleFavorite(); updateLike(video._id); clicked = !clicked">
+          <i class="fas fa-star" [ngClass]="{'fa-plus-circle': !clicked, 'fa-minus-circle': clicked}"></i>{{video.likedpeople}}</a>
+        <app-favorite-button [video]="video" (toggle)="onToggleFavorite($event)">
+          {{ video.isliked ? 'Unfavorite' : 'Favorite' }} Video <span class="counter">({{ video.likedpeople }})</span>
+        </app-favorite-button>
+      </div>
+    </div>
+    </div>
+  </div>
+</div>

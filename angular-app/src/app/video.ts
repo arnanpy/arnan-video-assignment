@@ -5,6 +5,7 @@ export interface Video {
      thumb: string,
      title: string,
      liked: [string],
+     likedpeople: Number,
      views: Number,
      score: Number
  } 

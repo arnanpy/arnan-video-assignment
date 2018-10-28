@@ -1,0 +1,7 @@
+<button class="btn btn-sm"
+ [ngClass]="{ 'disabled' : isSubmitting,
+              'btn-outline-primary': !video.isliked,
+              'btn-primary': video.isliked }"
+ (click)="toggleFavorite()">
+  <i class="fas fa-star"></i> <ng-content></ng-content>
+</button>

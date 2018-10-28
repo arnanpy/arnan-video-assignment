@@ -49,10 +49,41 @@ router.get('/videos', (req, res) => {
     });
 });
  
+
+function pipe1(uid){
+    return [
+        {
+            "$addFields": { 
+                "likedpeople": { $size: "$liked" }
+            }
+    
+        }, {
+            "$addFields": { 
+                "isliked": { $in: [ uid , "$liked" ] }
+            }
+    
+        },{ 
+            "$addFields": {  
+                "score": { "$add": [ "$views", "$likedpeople" ] }
+            }
+        },
+        {
+            "$sort": { "score": -1 }
+        },
+        {
+            "$limit": 10
+        }   
+    ]
+}
 var pipeline = [
     {
         "$addFields": { 
             "likedpeople": { $size: "$liked" }
+        }
+
+    }, {
+        "$addFields": { 
+            "isliked": { $in: [ uid , "$liked" ] }
         }
 
     },{ 
@@ -68,6 +99,7 @@ var pipeline = [
     }   
 ];
 var id = 0;
+var uid = "";
 var pipeline2 = [
     {
         "$match": { "_id": id } 
@@ -84,30 +116,32 @@ var pipeline2 = [
     } 
 ];
 router.get('/ranking', (req, res) => {
-    
-    Video.aggregate(pipeline ,function (err, videos) {
+    uid = req.query.uid
+    Video.aggregate(pipe1(uid) ,function (err, videos) {
         if (err) res.status(500).send(err)
         res.status(200).json(videos);
+
     });
 });
 
 router.get('/score/:id', (req, res) => { 
-    id = req.param.id
+    id = req.params.id
     Video.aggregate(pipeline2 , (err, users) => {
         if (err) res.status(500).send(err)
         res.status(200).json(users);
     });
-    });
+});
 
 router.post('/videos/like', (req, res) => {
     Video.findById( req.body.id , (err, video) => {
-        uid = 1
+        uid = req.body.uid
         if (err) res.status(500).send(err)
-        if(video.liked.indexOf(uid ) == -1){
-
-
-            video.liked.push(uid);
-            console.log(video.liked)
+        var idx = video.liked.indexOf(uid)
+        if(idx == -1){
+            video.liked.push(uid); 
+        }
+        else{
+            video.liked.splice(idx,1);
         }
         video.save(function (err, updatedLike) {
           if (err) res.status(500).send(err)
@@ -140,7 +174,7 @@ router.get('/users', (req, res) => {
 
 /* GET one users. */
 router.get('/users/:id', (req, res) => {
-    User.findById(req.param.id, (err, users) => {
+    User.findById(req.params.id, (err, users) => {
         if (err) res.status(500).send(err)
 
         res.status(200).json(users);

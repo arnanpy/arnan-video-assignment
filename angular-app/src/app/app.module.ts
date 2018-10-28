@@ -1,17 +1,22 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { AppComponent } from './app.component'; 
+import { AppComponent } from './app.component';
+import { VideoComponent } from './video/video.component'; 
+import { FavoriteButtonComponent } from './shared/button/favorite-button.component';
+import { VideoService } from './video/video.service';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    VideoComponent,
+    FavoriteButtonComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [VideoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
