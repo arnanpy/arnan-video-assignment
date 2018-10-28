@@ -1,26 +1,19 @@
-import { Component, OnDestroy, OnInit,Input  } from '@angular/core';
-import { VideoService } from './video.service'
+import { Component, OnInit , OnDestroy } from '@angular/core';
+import { Video } from '../video';
+import { VideoService } from '../video/video.service'
 import { Observable, interval } from 'rxjs';
 import { startWith, switchMap, takeWhile, map, toArray } from "rxjs/operators";
-import { Videoc } from './video.model';
-import { Video } from './video.model';
-
 
 @Component({
-  selector: 'app-video',
-  templateUrl: './video.component.html',
-  styleUrls: ['./video.component.css'],
+  selector: 'app-chart-list',
+  templateUrl: './chart-list.component.html',
+  styleUrls: ['./chart-list.component.css']
 })
-
-export class VideoComponent  implements OnInit, OnDestroy { 
+export class ChartListComponent implements OnInit, OnDestroy { 
 
   constructor(public videoService: VideoService) { }
-
-  public like_class = 'unlike';
   private alive: boolean;
-
-  
- 
+  private interval: number;
 
   ngOnInit() {
     this.interval = 1000;
@@ -42,17 +35,6 @@ export class VideoComponent  implements OnInit, OnDestroy {
           })
       });
   }
-
-  people = {}
-  results: Observable<Video[]>;
-  videos = {}
-  currentuser = {}
-
-  vids: Videoc[];
-
-  uid = 1;
-  private interval: number;
-
   ngOnDestroy(){
     this.alive = false; // switches your TimerObservable off
   }
@@ -60,5 +42,7 @@ export class VideoComponent  implements OnInit, OnDestroy {
   identify(index, item) {
     return index;
   } 
+
+  videos: Video[];
 
 }
