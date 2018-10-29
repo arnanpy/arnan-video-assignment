@@ -1,22 +1,21 @@
-<div class="card" [style.margin-top.px]="10" @items2>
+<div class="card" [style.margin-top.px]="10" [style.padding-top.px]="10" @items2>
   <div class="container-fluid">
     <div class="row">
-      <div class="col-md-1">No.{{ index+1 }}</div>
+      <div class="col-md-1"> <h4><span class="badge badge-danger">{{ index+1 }}</span></h4></div>
       <div class="col-md-3">
-      <img class="thumb_img" src="{{ video.thumb }}" (click)="open(content)" />
+      <img class="thumb_img" src="{{ video.thumb }}" [style.padding-bottom.px]="10"  (click)="open(content)" />
         <!-- <video class="thumb_img" poster="{{ video.thumb }}" controls (play)="updateView(video._id)" #videoPlayer>
           <source src="{{ video.sources }}" type="video/mp4"> 
         </video>-->
       </div>
       <div class="col-md-5">
-        <h4 class="card-title">{{video.title}}</h4>
+        <h4 class="card-title">{{video.title}} <app-like-button [video]="video" (toggle)="onToggleLike($event)">
+            <span class="counter">{{ video.likedpeople }}</span>
+          </app-like-button></h4>
         <p class="card-desc">{{video.description}}</p>
       </div>
       <div class="col-md-3">
         <p class="card-view">Views : {{video.views}}</p>
-        <app-like-button [video]="video" (toggle)="onToggleLike($event)">
-          <span class="counter">{{ video.likedpeople }}</span>
-        </app-like-button>
       </div>
     </div>
   </div>
