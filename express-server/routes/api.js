@@ -162,39 +162,5 @@ router.post('/videos/view', (req, res) => {
         });
     });
 });
-
-/* GET all users. */
-router.get('/users', (req, res) => {
-    User.find({}, (err, users) => {
-        if (err) res.status(500).send(error)
-
-        res.status(200).json(users);
-    });
-});
-
-/* GET one users. */
-router.get('/users/:id', (req, res) => {
-    User.findById(req.params.id, (err, users) => {
-        if (err) res.status(500).send(err)
-
-        res.status(200).json(users);
-    });
-});
-
-/* Create a user. */
-router.post('/users', (req, res) => {
-    let user = new User({
-        name: req.body.name,
-        id: req.body.id
-    });
-
-    user.save(error => {
-        if (error) res.status(500).send(err);
-
-        res.status(201).json({
-            message: 'User created successfully'
-        });
-    });
-});
-
+ 
 module.exports = router;

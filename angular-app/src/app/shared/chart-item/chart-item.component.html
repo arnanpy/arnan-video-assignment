@@ -1,20 +1,23 @@
-<div class="card" [style.margin-top.px]="10" [style.padding-top.px]="10" @items2>
+<div class="card" [style.margin-top.px]="10" [style.padding-top.px]="10">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-md-1"> <h4><span class="badge badge-danger">{{ index+1 }}</span></h4></div>
+      <div class="col-md-1"> <h4><span class="badge badge-danger">No.{{ index+1 }}</span></h4></div>
       <div class="col-md-3">
       <img class="thumb_img" src="{{ video.thumb }}" [style.padding-bottom.px]="10"  (click)="open(content)" />
         <!-- <video class="thumb_img" poster="{{ video.thumb }}" controls (play)="updateView(video._id)" #videoPlayer>
           <source src="{{ video.sources }}" type="video/mp4"> 
         </video>-->
       </div>
-      <div class="col-md-5">
-        <h4 class="card-title">{{video.title}} <app-like-button [video]="video" (toggle)="onToggleLike($event)">
+      <div class="col-md-6">
+        <div class="video-title">
+        <a class="btn" [style.padding-left.px]="0" (click)="open(content)"><h3 class="card-title inline" >{{video.title}}</h3> </a>
+        <app-like-button [video]="video" [style.padding-left.px]="10" (toggle)="onToggleLike($event)" class="inline">
             <span class="counter">{{ video.likedpeople }}</span>
-          </app-like-button></h4>
+          </app-like-button>
+        </div>
         <p class="card-desc">{{video.description}}</p>
       </div>
-      <div class="col-md-3">
+      <div class="col-md-2">
         <p class="card-view">Views : {{video.views}}</p>
       </div>
     </div>
@@ -23,7 +26,7 @@
 
 <ng-template #content let-modal>
     <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">{{video.title}}</h4>
+      <h4 class="modal-title" id="modal-basic-title"> </h4>
       <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
       </button>

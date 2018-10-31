@@ -4,3 +4,16 @@ Run:
 
 - After that, can run with these command 
     docker-compose up --build
+
+Backend : Express server
+    GET "/videos" : get video
+    GET "/ranking: : get video with top ten ranking
+    GET "/score/:id" : calculate score of video id
+    POST '/videos/like' : toggle like people of video
+    POST '/videos/view' : add view number of video
+
+
+Database : MongoDB
+    - collection name : video
+
+Frontend : Angular
