@@ -10,8 +10,8 @@
       </div>
       <div class="col-md-6">
         <div class="video-title">
-        <a class="btn" [style.padding-left.px]="0" (click)="open(content)"><h3 class="card-title inline" >{{video.title}}</h3> </a>
-        <app-like-button [video]="video" [style.padding-left.px]="10" (toggle)="onToggleLike($event)" class="inline">
+        <a class="btn  col-9" [style.padding-left.px]="0" (click)="open(content)"><h3 class="card-title inline" >{{video.title}}</h3> </a>
+        <app-like-button [video]="video" [style.padding-left.px]="10" (toggle)="onToggleLike($event)" class="inline  col-2">
             <span class="counter">{{ video.likedpeople }}</span>
           </app-like-button>
         </div>
