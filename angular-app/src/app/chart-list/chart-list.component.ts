@@ -1,5 +1,5 @@
 import { Component, OnInit , OnDestroy } from '@angular/core';
-import { Video } from '../video';
+import { Video } from '../video/video.model';
 import { VideoService } from '../video/video.service'
 import { Observable, interval } from 'rxjs';
 import { startWith, switchMap, takeWhile, map, toArray } from "rxjs/operators";

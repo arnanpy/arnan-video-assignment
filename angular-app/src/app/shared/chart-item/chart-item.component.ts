@@ -1,6 +1,6 @@
 import { Component,Input } from '@angular/core';
-import { Video } from 'src/app/video/video.model';
-import { VideoService } from 'src/app/video/video.service';
+import { Video } from '../../video/video.model';
+import { VideoService } from '../../video/video.service';
 import {  trigger,
   state,
   style,
