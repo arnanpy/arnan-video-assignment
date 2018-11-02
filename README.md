@@ -11,5 +11,5 @@ docker-compose -f docker-compose.yml -f docker-compose.seed.user.yml -f docker-c
 docker-compose up --build
 ```
 - ภาพตัวอย่าง 
-![alt text](https://github.com/arnanpy/arnan-video-assignment/raw/master/desktop-ss.png "desktop")
-![alt text](https://github.com/arnanpy/arnan-video-assignment/raw/master/mobile-ss.png "mobile") 
+<img src="https://github.com/arnanpy/arnan-video-assignment/raw/master/desktop-ss.png>
+<img src="https://github.com/arnanpy/arnan-video-assignment/raw/master/mobile-ss.png width="300px">
