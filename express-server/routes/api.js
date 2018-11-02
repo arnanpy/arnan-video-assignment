@@ -75,34 +75,14 @@ function pipe1(uid){
         }   
     ]
 }
-var pipeline = [
-    {
-        "$addFields": { 
-            "likedpeople": { $size: "$liked" }
-        }
-
-    }, {
-        "$addFields": { 
-            "isliked": { $in: [ uid , "$liked" ] }
-        }
-
-    },{ 
-        "$addFields": {  
-            "score": { "$add": [ "$views", "$likedpeople" ] }
-        }
-    },
-    {
-        "$sort": { "score": -1 }
-    },
-    {
-        "$limit": 10
-    }   
-];
 var id = 0;
 var uid = "";
-var pipeline2 = [
+const ObjectId = mongoose.Types.ObjectId;
+
+function pipe2(id){
+    return [
     {
-        "$match": { "_id": id } 
+            "$match": { "_id": ObjectId(id) } 
     },
     {
         "$addFields": { 
@@ -115,6 +95,7 @@ var pipeline2 = [
         }
     } 
 ];
+} 
 router.get('/ranking', (req, res) => {
     uid = req.query.uid
     Video.aggregate(pipe1(uid) ,function (err, videos) {
@@ -126,9 +107,15 @@ router.get('/ranking', (req, res) => {
 
 router.get('/score/:id', (req, res) => { 
     id = req.params.id
-    Video.aggregate(pipeline2 , (err, users) => {
+    Video.aggregate(pipe2(id) , (err, videos) => {
         if (err) res.status(500).send(err)
-        res.status(200).json(users);
+        res.status(200).json(
+            {
+                'id':id,
+                'score':videos[0].score,
+                'title':videos[0].title
+
+            });
     });
 });
 
