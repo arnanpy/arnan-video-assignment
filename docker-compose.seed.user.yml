@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  mongo-seed:
+  mongo-seed-user:
     image: mongo
     volumes:
     - .:/scripts
